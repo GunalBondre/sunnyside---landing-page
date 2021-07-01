@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Images from "../Images/index.js";
 
@@ -17,6 +17,16 @@ const HeroSection = styled.section`
 		position: relative;
 		z-index: 5;
 		top: 100px;
+		font-size: 50px;
+
+		@media (max-width: 767px) {
+			font-size: 40px;
+		}
+
+		/* @media (max-width: 480px) {
+			top: 63px;
+			font-size: 30px;
+		}  */
 	}
 
 	.arrow-icon {
@@ -30,6 +40,19 @@ const HeroSection = styled.section`
 			max-width: 50px;
 			max-height: 100px;
 		}
+		@media (max-width: 767px) {
+			img {
+				max-height: 157px;
+			}
+		}
+
+		@media (max-width: 480px) {
+			img {
+				max-width: 30px;
+				max-height: 100px;
+				top: 63%;
+			}
+		}
 	}
 `;
 
@@ -40,7 +63,9 @@ const Section2 = styled.section`
 
 	.about-us-wrapper {
 		display: flex;
-
+		width: 100%;
+		justify-content: center;
+		align-items: center;
 		.right-section,
 		.left-section {
 			width: 50%;
@@ -67,12 +92,67 @@ const Section2 = styled.section`
 
 		.learn-more-btn {
 			text-align: left;
+			width: 400px;
+			@media (max-width: 767px) {
+				text-align: center;
+				width: 100%;
+			}
 			a {
 				color: ${(props) => props.theme.dark_blue};
 				font-weight: 900;
 				font-family: Fraunces;
-				text-align: left;
+				text-align: center;
 				cursor: pointer;
+				display: inline-block;
+			}
+		}
+
+		.yellow,
+		.red {
+			position: relative;
+			z-index: 10;
+			transition: all 0.5s ease-in-out;
+			&::after {
+				content: "";
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 10px;
+				border-radius: 10px;
+				z-index: -1;
+				opacity: 0;
+			}
+
+			&:hover {
+				&::after {
+					opacity: 1;
+					transition: all 0.5s ease-in-out;
+				}
+			}
+		}
+		.red {
+			&::after {
+				background-color: ${(props) => props.theme.soft_red};
+			}
+		}
+		.yellow {
+			&::after {
+				background-color: ${(props) => props.theme.yellow};
+			}
+		}
+
+		@media (max-width: 767px) {
+			.title2,
+			.para1 {
+				max-width: 400px;
+				text-align: center;
+				padding: 0 30px;
+			}
+		}
+		.para1 {
+			@media (max-width: 767px) {
+				padding: 20px 10px;
 			}
 		}
 		@media (max-width: 480px) {
@@ -80,7 +160,6 @@ const Section2 = styled.section`
 			.right-section,
 			.left-section {
 				width: 100%;
-				height: 50vh;
 			}
 
 			.title2,
@@ -88,11 +167,15 @@ const Section2 = styled.section`
 				max-width: 400px;
 				text-align: center;
 			}
-			.left2 {
+			.right1 {
+				order: 1;
+			}
+			.left1 {
 				order: 2;
 			}
+			.left1,
 			.right2 {
-				order: 1;
+				padding: 30px;
 			}
 		}
 	}
@@ -106,6 +189,10 @@ const Section2 = styled.section`
 			.para1 {
 				text-align: center;
 			}
+		}
+		.left-section,
+		.right-section {
+			position: relative;
 		}
 	}
 `;
@@ -145,7 +232,16 @@ const Section3 = styled.section`
 						font-size: 12px;
 					}
 				}
+
+				@media (max-width: 480px) {
+					padding: 20px 0;
+				}
 			}
+		}
+
+		@media (max-width: 480px) {
+			height: auto;
+			padding: 30px 0;
 		}
 	}
 `;
@@ -157,12 +253,13 @@ const Section4 = styled.section`
 		grid-template-columns: repeat(4, 1fr);
 
 		@media (max-width: 767px) {
-			grid-template-columns: repeat(1, 1fr);
+			grid-template-columns: repeat(2, 1fr);
 		}
 	}
 `;
 
 const Footer = styled.section`
+	background-color: ${(props) => props.theme.dark_moderate_cyan};
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -185,6 +282,9 @@ const Footer = styled.section`
 			justify-content: space-evenly;
 			a {
 				color: ${(props) => props.theme.very_dark_desaturated_blue};
+				&:hover {
+					color: ${(props) => props.theme.white};
+				}
 			}
 		}
 
@@ -193,16 +293,45 @@ const Footer = styled.section`
 			justify-content: space-evenly;
 			img {
 				max-width: 20px;
+				cursor: pointer;
+				&:hover {
+					background-color: ${(props) => props.theme.white};
+					color: ${(props) => props.theme.white};
+					border: none;
+				}
 			}
+		}
+
+		@media (max-width: 767px) {
+			width: 50%;
+		}
+
+		@media (max-width: 480px) {
+			width: 100%;
 		}
 	}
 `;
 const Home = () => {
+	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+	useEffect(() => {
+		const handleWindowResize = () => {
+			setWindowWidth(window.innerWidth);
+		};
+		window.addEventListener("resize", handleWindowResize);
+		return () => {
+			window.removeEventListener("resize", handleWindowResize);
+		};
+	}, [setWindowWidth]);
 	return (
 		<div>
 			<HeroSection>
 				<h1 className="title1">We Are Creatives</h1>
-				<img src={Images.image_header} alt="banner image" />
+				{window.innerWidth <= 767 ? (
+					<img src={Images.image_header_mobile} alt="banner image" />
+				) : (
+					<img src={Images.image_header} alt="banner image" />
+				)}
 				<div className="arrow-icon">
 					<img src={Images.icon_arrow_down} alt="arrow-icon" />
 				</div>
@@ -218,13 +347,17 @@ const Home = () => {
 							most of marketing for you
 						</p>
 						<div className="learn-more-btn">
-							<a href="" className="learn-btn">
+							<a href="" className="learn-btn yellow">
 								LEARN MORE
 							</a>
 						</div>
 					</div>
 					<div className="right-section right1">
-						<img src={Images.image_transform} alt="" />
+						{window.innerWidth >= 767 ? (
+							<img src={Images.image_transform} alt="egg image" />
+						) : (
+							<img src={Images.image_transform_mobile} alt="egg image" />
+						)}
 					</div>
 				</div>
 			</Section2>
@@ -242,7 +375,7 @@ const Home = () => {
 							extend your brand in digital world
 						</p>
 						<div className="learn-more-btn">
-							<a href="" className="learn-btn">
+							<a href="" className="learn-btn red">
 								LEARN MORE
 							</a>
 						</div>
@@ -253,11 +386,20 @@ const Home = () => {
 			<Section2>
 				<div className="about-us-wrapper services">
 					<div className="left-section">
-						<img
-							src={Images.image_graphic_design}
-							alt="image_graphic_design"
-							className="img-photo"
-						/>
+						{window.innerWidth >= 767 ? (
+							<img
+								src={Images.image_graphic_design}
+								alt="image_graphic_design"
+								className="img-photo"
+							/>
+						) : (
+							<img
+								src={Images.image_graphic_design_mobile}
+								alt="image_graphic_design"
+								className="img-photo"
+							/>
+						)}
+
 						<div className="content">
 							<h3 className="title3">Graphic Design</h3>
 							<p className="para1">
@@ -268,11 +410,20 @@ const Home = () => {
 						</div>
 					</div>
 					<div className="right-section">
-						<img
-							src={Images.image_photography}
-							alt="image_graphic_design"
-							className="img-photo1"
-						/>
+						{window.innerWidth >= 767 ? (
+							<img
+								src={Images.image_photography}
+								alt="image_graphic_design"
+								className="img-photo1"
+							/>
+						) : (
+							<img
+								src={Images.image_photography_mobile}
+								alt="image_graphic_design"
+								className="img-photo1"
+							/>
+						)}
+
 						<div className="content">
 							<h3 className="title3">Photography</h3>
 							<p className="para1">

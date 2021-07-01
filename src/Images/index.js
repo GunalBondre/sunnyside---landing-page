@@ -18,6 +18,18 @@ const Images = {
 	image_pinterest: require("./icon-pinterest.svg").default,
 	image_twitter: require("./icon-twitter.svg").default,
 	image_hamburger: require("./icon-hamburger.svg").default,
+
+	image_1_mobile: require("./mobile/image-gallery-cone.jpg").default,
+	image_2_mobile: require("./mobile/image-gallery-milkbottles.jpg").default,
+	image_3_mobile: require("./mobile/image-gallery-orange.jpg").default,
+	image_4_mobile: require("./mobile/image-gallery-sugar-cubes.jpg").default,
+	image_transform_mobile: require("./mobile/image-transform.jpg").default,
+	image_stand_out_mobile: require("./mobile/image-stand-out.jpg").default,
+	image_photography_mobile: require("./mobile/image-photography.jpg").default,
+	image_graphic_design_mobile: require("./mobile/image-graphic-design.jpg")
+		.default,
+	image_gallery_cone_mobile: require("./mobile/image-gallery-cone.jpg").default,
+	image_header_mobile: require("./mobile/image-header.jpg").default,
 };
 
 export default Images;
