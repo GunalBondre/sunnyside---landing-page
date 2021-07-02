@@ -11,12 +11,12 @@ const HeroSection = styled.section`
 		top: 0;
 		left: 0;
 		width: 100%;
-		height: 100vh;
+		height: 100%;
 	}
 	h1 {
 		position: relative;
 		z-index: 5;
-		top: 100px;
+		top: 130px;
 		font-size: 50px;
 
 		@media (max-width: 767px) {
@@ -37,8 +37,8 @@ const HeroSection = styled.section`
 			transform: translate(-50%, -50%);
 			width: 100%;
 			height: 100%;
-			max-width: 50px;
-			max-height: 100px;
+			max-width: 40px;
+			max-height: 130px;
 		}
 		@media (max-width: 767px) {
 			img {
@@ -198,6 +198,7 @@ const Section2 = styled.section`
 `;
 
 const Section3 = styled.section`
+	background-color: #fffbf8;
 	.client-testimonials {
 		.title3 {
 			letter-spacing: 4px;
@@ -208,7 +209,7 @@ const Section3 = styled.section`
 		display: flex;
 		flex-direction: column;
 		justify-content: space-evenly;
-		height: 100vh;
+		height: 80vh;
 		.testomonial-wrapper {
 			display: grid;
 			grid-template-columns: repeat(3, 1fr);
@@ -259,7 +260,7 @@ const Section4 = styled.section`
 `;
 
 const Footer = styled.section`
-	background-color: ${(props) => props.theme.dark_moderate_cyan};
+	background-color: #90d4c5;
 	width: 100%;
 	display: flex;
 	flex-direction: column;

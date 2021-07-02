@@ -3,11 +3,13 @@ import styled from "styled-components";
 import Images from "../Images/index.js";
 
 const Nav = styled.nav`
-	padding: 30px;
+	padding: 34px;
 	z-index: 10;
 	position: fixed;
 	width: 100%;
-
+	.logo {
+		font-size: 35px;
+	}
 	.nav-wrapper {
 		display: flex;
 		justify-content: space-between;
